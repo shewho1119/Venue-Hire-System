@@ -20,14 +20,20 @@ public class VenueHireSystem {
   public void createVenue(
       String venueName, String venueCode, String capacityInput, String hireFeeInput) {
         
+        //if venue name empty, print error message
+        if(venueName.trim().isEmpty()){
+          MessageCli.VENUE_NOT_CREATED_EMPTY_NAME.printMessage();
+          return;
+        }
+
         //Convert the capacity and hirefee to integer
         int capacity = Integer.parseInt(capacityInput);
         int hireFee = Integer.parseInt(hireFeeInput);
 
         // When the capacity is negative or not over 0, print the error message
         if (capacity <= 0) {
-            MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", " positive");
-            return;
+          MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", " positive");
+          return;
         }
 
         // When the hirefee is negative or not over 0, print the error message
