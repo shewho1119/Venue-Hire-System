@@ -36,6 +36,16 @@ public class VenueHireSystem {
         Venue venue = venueList.get(i);
         MessageCli.VENUE_ENTRY.printMessage(venue.getVenueName(), venue.getVenueCode(), venue.getCapacity(), venue.getHireFee(),"TODO");
       }
+      return;
+    }
+
+    if (venueList.size() >= 10) {
+      MessageCli.NUMBER_VENUES.printMessage("are", Integer.toString(venueList.size()), "s");
+      for (int i = 0; i < venueList.size(); i++) {
+        Venue venue = venueList.get(i);
+        MessageCli.VENUE_ENTRY.printMessage(venue.getVenueName(), venue.getVenueCode(), venue.getCapacity(), venue.getHireFee(),"TODO");
+      }
+      return;
     }
 
   }
