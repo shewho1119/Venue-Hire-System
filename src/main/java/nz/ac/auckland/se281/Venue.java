@@ -11,4 +11,24 @@ public class Venue {
       this.capacity = capacity;
       this.hireFee = hireFee;
   }
+
+  //Getter methods for venue entities
+  public String getVenueName() {
+    return venueName;
+  }
+
+  public String getVenueCode() {
+    return venueCode;
+  }
+
+  public String getCapacity() {
+    return capacity;
+  }
+
+  public String getHireFee() {
+    return hireFee;
+  }
+
+
+
 }
