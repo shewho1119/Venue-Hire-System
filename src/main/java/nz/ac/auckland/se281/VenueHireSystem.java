@@ -27,9 +27,11 @@ public class VenueHireSystem {
       MessageCli.VENUE_ENTRY.printMessage(venueOne.getVenueName(), venueOne.getVenueCode(), venueOne.getCapacity(), venueOne.getHireFee(),"TODO");
       return;
     }
-
+    
+    //string array to store the number of venues
     String[] numberOfVenues = {"two", "three", "four", "five", "six", "seven", "eight", "nine"};
 
+    //more than 1 venue and less than 10 venues in the system
     if (venueList.size() > 1 && venueList.size() < 10) {
       MessageCli.NUMBER_VENUES.printMessage("are", numberOfVenues[venueList.size() - 2], "s");
       for (int i = 0; i < venueList.size(); i++) {
@@ -38,7 +40,8 @@ public class VenueHireSystem {
       }
       return;
     }
-
+    
+    // 10 or more venues in the system
     if (venueList.size() >= 10) {
       MessageCli.NUMBER_VENUES.printMessage("are", Integer.toString(venueList.size()), "s");
       for (int i = 0; i < venueList.size(); i++) {
@@ -58,7 +61,7 @@ public class VenueHireSystem {
           MessageCli.VENUE_NOT_CREATED_EMPTY_NAME.printMessage();
           return;
         }
-
+        
         //invalid input for capacity
         try {
           //Convert the capacity to integer
@@ -89,6 +92,14 @@ public class VenueHireSystem {
         } catch(Exception e) {
           MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", "");
           return;
+        }
+
+        //venue code already exists
+        for (int i = 0; i < venueList.size(); i++) {
+          if (venueList.get(i).getVenueCode().equals(venueCode)) {
+            MessageCli.VENUE_NOT_CREATED_CODE_EXISTS.printMessage(venueCode,venueList.get(i).getVenueName());
+            return;
+          }
         }
 
         // Add the venue informations to the venueList
