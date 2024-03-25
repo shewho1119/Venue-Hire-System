@@ -1,4 +1,5 @@
 package nz.ac.auckland.se281;
+
 public class Venue {
   private String venueName;
   private String venueCode;
@@ -6,13 +7,13 @@ public class Venue {
   private String hireFee;
 
   public Venue(String name, String code, String capacity, String hireFee) {
-      this.venueName = name;
-      this.venueCode = code;
-      this.capacity = capacity;
-      this.hireFee = hireFee;
+    this.venueName = name;
+    this.venueCode = code;
+    this.capacity = capacity;
+    this.hireFee = hireFee;
   }
 
-  //Getter methods for venue entities
+  // Getter methods for venue entities
   public String getVenueName() {
     return venueName;
   }
@@ -28,7 +29,4 @@ public class Venue {
   public String getHireFee() {
     return hireFee;
   }
-
-
-
 }
