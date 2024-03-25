@@ -33,8 +33,8 @@ public class VenueHireSystem {
 
           // When the capacity is negative or not over 0, print the error message
           if (capacity <= 0) {
-          MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", " positive");
-          return;
+            MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", " positive");
+            return;
           }
           // When capacity is not a number, print the error message
         } catch(Exception e) {
@@ -42,13 +42,19 @@ public class VenueHireSystem {
           return;
         }
 
-        //Convert the hirefee to integer
-        int hireFee = Integer.parseInt(hireFeeInput);
-
-
-        // When the hirefee is negative or not over 0, print the error message
-        if (hireFee <= 0) {
-          MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", " positive");
+        //invalid input for hirefee
+        try {
+          //Convert the hirefee to integer
+          int hireFee = Integer.parseInt(hireFeeInput);
+          
+          // When the hirefee is negative or not over 0, print the error message
+          if (hireFee <= 0) {
+            MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", " positive");
+            return;
+          }
+          // When hirefee is not a number, print the error message
+        } catch(Exception e) {
+          MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", "");
           return;
         }
 
