@@ -26,21 +26,31 @@ public class VenueHireSystem {
           return;
         }
 
-        //Convert the capacity and hirefee to integer
-        int capacity = Integer.parseInt(capacityInput);
-        int hireFee = Integer.parseInt(hireFeeInput);
+        //invalid input for capacity
+        try {
+          //Convert the capacity to integer
+          int capacity = Integer.parseInt(capacityInput);
 
-        // When the capacity is negative or not over 0, print the error message
-        if (capacity <= 0) {
+          // When the capacity is negative or not over 0, print the error message
+          if (capacity <= 0) {
           MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", " positive");
           return;
+          }
+          // When capacity is not a number, print the error message
+        } catch(Exception e) {
+          MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", "");
+          return;
         }
+
+        //Convert the hirefee to integer
+        int hireFee = Integer.parseInt(hireFeeInput);
+
 
         // When the hirefee is negative or not over 0, print the error message
         if (hireFee <= 0) {
           MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", " positive");
           return;
-      }
+        }
 
         // Add the venue informations to the venueList
         Venue venue = new Venue(venueName, venueCode, capacityInput, hireFeeInput);
