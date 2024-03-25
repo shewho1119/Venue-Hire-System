@@ -28,6 +28,16 @@ public class VenueHireSystem {
       return;
     }
 
+    String[] numberOfVenues = {"two", "three", "four", "five", "six", "seven", "eight", "nine"};
+
+    if (venueList.size() > 1 && venueList.size() < 10) {
+      MessageCli.NUMBER_VENUES.printMessage("are", numberOfVenues[venueList.size() - 2], "s");
+      for (int i = 0; i < venueList.size(); i++) {
+        Venue venue = venueList.get(i);
+        MessageCli.VENUE_ENTRY.printMessage(venue.getVenueName(), venue.getVenueCode(), venue.getCapacity(), venue.getHireFee(),"TODO");
+      }
+    }
+
   }
 
   public void createVenue(
