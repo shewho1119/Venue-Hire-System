@@ -6,7 +6,7 @@ import nz.ac.auckland.se281.Types.FloralType;
 
 public class VenueHireSystem {
 
-  ArrayList<Venue> venueList = new ArrayList<Venue>();
+  private ArrayList<Venue> venueList = new ArrayList<Venue>();
 
   public VenueHireSystem() {}
 
