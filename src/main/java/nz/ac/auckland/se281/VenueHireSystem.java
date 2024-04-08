@@ -121,12 +121,18 @@ public class VenueHireSystem {
     MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venueName, venueCode);
   }
 
+  private String systemDate;
+
   public void setSystemDate(String dateInput) {
-    // TODO implement this method
+    this.systemDate = dateInput;
   }
 
   public void printSystemDate() {
-    // TODO implement this method
+    // If the system date is not set, print the message
+    if (systemDate == null) {
+      MessageCli.CURRENT_DATE.printMessage("not set");
+      return;
+    }
   }
 
   public void makeBooking(String[] options) {
