@@ -125,6 +125,7 @@ public class VenueHireSystem {
 
   public void setSystemDate(String dateInput) {
     this.systemDate = dateInput;
+    MessageCli.DATE_SET.printMessage(systemDate);
   }
 
   public void printSystemDate() {
