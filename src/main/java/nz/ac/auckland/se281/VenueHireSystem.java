@@ -143,6 +143,13 @@ public class VenueHireSystem {
 
   public void makeBooking(String[] options) {
 
+    // If there is no venue created in the system
+    if (venueList.isEmpty()) {
+      MessageCli.BOOKING_NOT_MADE_NO_VENUES.printMessage();
+      return;
+    }
+
+    // If the system date has not been set yet
     if (systemDate == null) {
       MessageCli.BOOKING_NOT_MADE_DATE_NOT_SET.printMessage();
       return;
@@ -158,15 +165,24 @@ public class VenueHireSystem {
     Booking booking = new Booking(referenceCode, code, date, email, attendees);
     bookingList.add(booking);
 
+    boolean venueCodeExist = false;
+
     // Get the name of the venue by using the venue code
     for (int i = 0; i < venueList.size(); i++) {
       Venue venue = venueList.get(i);
       if (venue.getVenueCode().equals(code)) {
+        venueCodeExist = true;
         String bookingNameVenue = venue.getVenueName();
         MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(
             referenceCode, bookingNameVenue, date, attendees);
         return;
       }
+    }
+
+    // If the corresponding venue code not found in the system
+    if (!venueCodeExist) {
+      MessageCli.BOOKING_NOT_MADE_VENUE_NOT_FOUND.printMessage(code);
+      return;
     }
   }
 
