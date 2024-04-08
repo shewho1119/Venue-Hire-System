@@ -167,43 +167,56 @@ public class VenueHireSystem {
       return;
     }
 
-    // Create a new booking object
-    Booking booking = new Booking(referenceCode, code, date, email, attendees);
-    bookingList.add(booking);
-
+    // Get the name of the venue by using the venue code
+    String bookingNameVenue = null;
+    // check if the venue requested actually exists
     boolean venueCodeExist = false;
 
-    // Get the name of the venue by using the venue code
+    // Check if the venue code exists - go through the venueList
     for (int i = 0; i < venueList.size(); i++) {
       Venue venue = venueList.get(i);
       if (venue.getVenueCode().equals(code)) {
         venueCodeExist = true;
-        String bookingNameVenue = venue.getVenueName();
-        MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(
-            referenceCode, bookingNameVenue, date, attendees);
-        return;
+        bookingNameVenue = venue.getVenueName();
+        break;
       }
     }
 
-    // If the corresponding venue code not found in the system
+    // If the corresponding venue code not found in the system, print error message
     if (!venueCodeExist) {
       MessageCli.BOOKING_NOT_MADE_VENUE_NOT_FOUND.printMessage(code);
       return;
     }
+
+    // Check for double booking
+    for (int i = 0; i < bookingList.size(); i++) {
+      Booking booking = bookingList.get(i);
+      if (booking.getVenueCodeInput().equals(code) && booking.getRequestedDate().equals(date)) {
+        MessageCli.BOOKING_NOT_MADE_VENUE_ALREADY_BOOKED.printMessage(bookingNameVenue, date);
+        return;
+      }
+    }
+
+    // Record the booking information into the list - Create a new booking object
+    Booking booking = new Booking(referenceCode, bookingNameVenue, code, date, email, attendees);
+    bookingList.add(booking);
+    // Print Successful Message
+    MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(
+        referenceCode, bookingNameVenue, date, attendees);
   }
 
   private boolean isBookingDatePast(String bookingDate) {
     // Booking Date split
     String[] bookingDateParts = bookingDate.split("/");
-    int bookingDay = Integer.parseInt(bookingDateParts[0]); // "26"
-    int bookingMonth = Integer.parseInt(bookingDateParts[1]); // "02"
-    int bookingYear = Integer.parseInt(bookingDateParts[2]); // "2024"
+    int bookingDay = Integer.parseInt(bookingDateParts[0]);
+    int bookingMonth = Integer.parseInt(bookingDateParts[1]);
+    int bookingYear = Integer.parseInt(bookingDateParts[2]);
 
     // System Date split
     String[] systemDateParts = systemDate.split("/");
-    int systemDay = Integer.parseInt(systemDateParts[0]); // "26"
-    int systemMonth = Integer.parseInt(systemDateParts[1]); // "02"
-    int systemYear = Integer.parseInt(systemDateParts[2]); // "2024"
+    int systemDay = Integer.parseInt(systemDateParts[0]);
+    int systemMonth = Integer.parseInt(systemDateParts[1]);
+    int systemYear = Integer.parseInt(systemDateParts[2]);
 
     if (bookingYear < systemYear) {
       return true;
