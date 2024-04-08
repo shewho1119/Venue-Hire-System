@@ -139,8 +139,29 @@ public class VenueHireSystem {
     }
   }
 
+  private ArrayList<Booking> bookingList = new ArrayList<Booking>();
+
   public void makeBooking(String[] options) {
     // TODO implement this method
+
+    String referenceCode = BookingReferenceGenerator.generateBookingReference();
+    String code = options[0];
+    String date = options[1];
+    String email = options[2];
+    String attendees = options[3];
+
+    Booking booking = new Booking(referenceCode, code, date, email, attendees);
+    bookingList.add(booking);
+
+    for (int i = 0; i < venueList.size(); i++) {
+      Venue venue = venueList.get(i);
+      if (venue.getVenueCode().equals(code)) {
+        String bookingNameVenue = venue.getVenueName();
+        MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(
+            referenceCode, bookingNameVenue, date, attendees);
+        return;
+      }
+    }
   }
 
   public void printBookings(String venueCode) {
