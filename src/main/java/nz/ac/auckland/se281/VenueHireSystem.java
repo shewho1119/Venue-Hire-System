@@ -161,6 +161,12 @@ public class VenueHireSystem {
     String email = options[2];
     String attendees = options[3];
 
+    // if the Booking Date is past the System Date
+    if (isBookingDatePast(date)) {
+      MessageCli.BOOKING_NOT_MADE_PAST_DATE.printMessage(date, systemDate);
+      return;
+    }
+
     // Create a new booking object
     Booking booking = new Booking(referenceCode, code, date, email, attendees);
     bookingList.add(booking);
@@ -184,6 +190,30 @@ public class VenueHireSystem {
       MessageCli.BOOKING_NOT_MADE_VENUE_NOT_FOUND.printMessage(code);
       return;
     }
+  }
+
+  private boolean isBookingDatePast(String bookingDate) {
+    // Booking Date split
+    String[] bookingDateParts = bookingDate.split("/");
+    int bookingDay = Integer.parseInt(bookingDateParts[0]); // "26"
+    int bookingMonth = Integer.parseInt(bookingDateParts[1]); // "02"
+    int bookingYear = Integer.parseInt(bookingDateParts[2]); // "2024"
+
+    // System Date split
+    String[] systemDateParts = systemDate.split("/");
+    int systemDay = Integer.parseInt(systemDateParts[0]); // "26"
+    int systemMonth = Integer.parseInt(systemDateParts[1]); // "02"
+    int systemYear = Integer.parseInt(systemDateParts[2]); // "2024"
+
+    if (bookingYear < systemYear) {
+      return true;
+    } else if (bookingYear == systemYear && bookingMonth < systemMonth) {
+      return true;
+    } else if (bookingYear == systemYear && bookingMonth == systemMonth && bookingDay < systemDay) {
+      return true;
+    }
+
+    return false;
   }
 
   public void printBookings(String venueCode) {
