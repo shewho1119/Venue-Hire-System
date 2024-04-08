@@ -142,7 +142,11 @@ public class VenueHireSystem {
   private ArrayList<Booking> bookingList = new ArrayList<Booking>();
 
   public void makeBooking(String[] options) {
-    // TODO implement this method
+
+    if (systemDate == null) {
+      MessageCli.BOOKING_NOT_MADE_DATE_NOT_SET.printMessage();
+      return;
+    }
 
     String referenceCode = BookingReferenceGenerator.generateBookingReference();
     String code = options[0];
@@ -150,9 +154,11 @@ public class VenueHireSystem {
     String email = options[2];
     String attendees = options[3];
 
+    // Create a new booking object
     Booking booking = new Booking(referenceCode, code, date, email, attendees);
     bookingList.add(booking);
 
+    // Get the name of the venue by using the venue code
     for (int i = 0; i < venueList.size(); i++) {
       Venue venue = venueList.get(i);
       if (venue.getVenueCode().equals(code)) {
