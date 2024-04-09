@@ -178,6 +178,19 @@ public class VenueHireSystem {
       if (venue.getVenueCode().equals(code)) {
         venueCodeExist = true;
         bookingNameVenue = venue.getVenueName();
+
+        int venueCapacity = Integer.parseInt(venue.getCapacity());
+        int attendeesInt = Integer.parseInt(attendees);
+        if (attendeesInt < (venueCapacity / 4)) {
+          attendeesInt = venueCapacity / 4;
+          MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(attendees, Integer.toString(attendeesInt), venue.getCapacity());
+          attendees = Integer.toString(attendeesInt);
+        } else if (attendeesInt > venueCapacity) {
+          attendeesInt = venueCapacity;
+          MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(attendees, Integer.toString(attendeesInt), venue.getCapacity());
+          attendees = Integer.toString(attendeesInt);
+        }
+
         break;
       }
     }
