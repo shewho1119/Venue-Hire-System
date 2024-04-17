@@ -26,7 +26,7 @@ public class VenueHireSystem {
           venueOne.getVenueCode(),
           venueOne.getCapacity(),
           venueOne.getHireFee(),
-          "TODO");
+          nextAvailableDate(venueOne.getVenueCode()));
       return;
     }
 
@@ -38,12 +38,13 @@ public class VenueHireSystem {
       MessageCli.NUMBER_VENUES.printMessage("are", numberOfVenues[venueList.size() - 2], "s");
       for (int i = 0; i < venueList.size(); i++) {
         Venue venue = venueList.get(i);
+
         MessageCli.VENUE_ENTRY.printMessage(
             venue.getVenueName(),
             venue.getVenueCode(),
             venue.getCapacity(),
             venue.getHireFee(),
-            "TODO");
+            nextAvailableDate(venue.getVenueCode()));
       }
       return;
     }
@@ -58,10 +59,38 @@ public class VenueHireSystem {
             venue.getVenueCode(),
             venue.getCapacity(),
             venue.getHireFee(),
-            "TODO");
+            nextAvailableDate(venue.getVenueCode()));
       }
       return;
     }
+  }
+
+  public String nextAvailableDate(String venueCode) {
+
+    // If the system date has not been set yet
+    if (systemDate == null) {
+      return "TODO";
+    }
+
+    String nextDate = systemDate;
+
+    // System Date split
+    String[] nextDateParts = nextDate.split("/");
+    int nextDay = Integer.parseInt(nextDateParts[0]);
+    int nextMonth = Integer.parseInt(nextDateParts[1]);
+    int nextYear = Integer.parseInt(nextDateParts[2]);
+
+    for (int i = 0; i < bookingList.size(); i++) {
+      Booking booking = bookingList.get(i);
+      if (booking.getVenueCodeInput().equals(venueCode)) {
+        if (nextDate.equals(booking.getRequestedDate())) {
+          nextDay++;
+          nextDate = String.format("%02d/%02d/%04d", nextDay, nextMonth, nextYear);
+        }
+      }
+    }
+
+    return nextDate;
   }
 
   public void createVenue(
@@ -143,15 +172,15 @@ public class VenueHireSystem {
 
   public void makeBooking(String[] options) {
 
-    // If there is no venue created in the system
-    if (venueList.isEmpty()) {
-      MessageCli.BOOKING_NOT_MADE_NO_VENUES.printMessage();
-      return;
-    }
-
     // If the system date has not been set yet
     if (systemDate == null) {
       MessageCli.BOOKING_NOT_MADE_DATE_NOT_SET.printMessage();
+      return;
+    }
+
+    // If there is no venue created in the system
+    if (venueList.isEmpty()) {
+      MessageCli.BOOKING_NOT_MADE_NO_VENUES.printMessage();
       return;
     }
 
@@ -179,15 +208,18 @@ public class VenueHireSystem {
         venueCodeExist = true;
         bookingNameVenue = venue.getVenueName();
 
+        // Check if the number of attendees is <25% or >100% of the venue capacity
         int venueCapacity = Integer.parseInt(venue.getCapacity());
         int attendeesInt = Integer.parseInt(attendees);
         if (attendeesInt < (venueCapacity / 4)) {
           attendeesInt = venueCapacity / 4;
-          MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(attendees, Integer.toString(attendeesInt), venue.getCapacity());
+          MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(
+              attendees, Integer.toString(attendeesInt), venue.getCapacity());
           attendees = Integer.toString(attendeesInt);
         } else if (attendeesInt > venueCapacity) {
           attendeesInt = venueCapacity;
-          MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(attendees, Integer.toString(attendeesInt), venue.getCapacity());
+          MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(
+              attendees, Integer.toString(attendeesInt), venue.getCapacity());
           attendees = Integer.toString(attendeesInt);
         }
 
