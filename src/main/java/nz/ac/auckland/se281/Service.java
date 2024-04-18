@@ -4,12 +4,10 @@ public abstract class Service {
 
   private String bookingReference;
   private String serviceTypeName;
-  private int cost;
 
-  public Service(String bookingReference, String serviceTypeName, int cost) {
+  public Service(String bookingReference, String serviceTypeName) {
     this.bookingReference = bookingReference;
     this.serviceTypeName = serviceTypeName;
-    this.cost = cost;
   }
 
   // getter methods for Service entities
@@ -21,7 +19,5 @@ public abstract class Service {
     return serviceTypeName;
   }
 
-  public int getCost() {
-    return cost;
-  }
+  public abstract int getCost();
 }

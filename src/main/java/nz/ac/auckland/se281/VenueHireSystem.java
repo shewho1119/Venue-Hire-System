@@ -338,8 +338,7 @@ public class VenueHireSystem {
         bookingExists = true;
 
         // Create a new catering object with the booking reference, catering type name and cost
-        Catering cateringService =
-            new Catering(bookingReference, cateringType.getName(), cateringType.getCostPerPerson());
+        Catering cateringService = new Catering(bookingReference, cateringType);
 
         // Add the catering object made to the cateringList
         cateringList.add(cateringService);
@@ -368,7 +367,7 @@ public class VenueHireSystem {
         bookingExists = true;
 
         // Create a new music object with the booking reference and cost
-        Music musicService = new Music(bookingReference, 500);
+        Music musicService = new Music(bookingReference);
 
         // Add the music object made to the musicList
         musicList.add(musicService);
@@ -396,8 +395,7 @@ public class VenueHireSystem {
         bookingExists = true;
 
         // Create a new floral object with the booking reference, floral type name and cost
-        FloralSystem floralService =
-            new FloralSystem(bookingReference, floralType.getName(), floralType.getCost());
+        FloralSystem floralService = new FloralSystem(bookingReference, floralType);
 
         // Add the floral object made to the floralList
         floralList.add(floralService);

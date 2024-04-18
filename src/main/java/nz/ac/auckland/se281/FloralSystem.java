@@ -1,8 +1,17 @@
 package nz.ac.auckland.se281;
 
+import nz.ac.auckland.se281.Types.FloralType;
+
 public class FloralSystem extends Service {
 
-  public FloralSystem(String bookingReference, String floralTypeName, int cost) {
-    super(bookingReference, floralTypeName, cost);
+  FloralType floralType;
+
+  public FloralSystem(String bookingReference, FloralType floralType) {
+    super(bookingReference, floralType.getName());
+    this.floralType = floralType;
+  }
+
+  public int getCost() {
+    return floralType.getCost();
   }
 }
