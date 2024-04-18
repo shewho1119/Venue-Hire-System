@@ -404,8 +404,19 @@ public class VenueHireSystem {
                 booking.getAttendees(),
                 booking.getBookingNameVenue());
 
-            // MessageCli.INVOICE_CONTENT_VENUE_FEE.printMessage(venue.getHireFee());
-            // MessageCli.INVOICE_CONTENT_CATERING_ENTRY.printMessage();
+            MessageCli.INVOICE_CONTENT_VENUE_FEE.printMessage(venue.getHireFee());
+
+            int numPeople = Integer.parseInt(booking.getAttendees());
+
+            for (int a = 0; a < cateringList.size(); a++) {
+              if (cateringList.get(a).getBookingReference().equals(bookingReference)) {
+                MessageCli.INVOICE_CONTENT_CATERING_ENTRY.printMessage(
+                    cateringList.get(a).getserviceTypeName(),
+                    Integer.toString(cateringList.get(a).getCost() * numPeople));
+              }
+            }
+
+            // break;
 
           }
         }
