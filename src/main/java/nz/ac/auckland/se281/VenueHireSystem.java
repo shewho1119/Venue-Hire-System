@@ -72,6 +72,7 @@ public class VenueHireSystem {
       return "TODO";
     }
 
+    // Get the next available date for the venue
     String nextDate = systemDate;
 
     // System Date split
@@ -83,8 +84,11 @@ public class VenueHireSystem {
     for (int i = 0; i < bookingList.size(); i++) {
       Booking booking = bookingList.get(i);
       if (booking.getVenueCodeInput().equals(venueCode)) {
+
+        // if there is a booking made on the system date, increment the next available date
         if (nextDate.equals(booking.getRequestedDate())) {
           nextDay++;
+          // update the next available date by concatenating the new incremented next Day
           nextDate = String.format("%02d/%02d/%04d", nextDay, nextMonth, nextYear);
         }
       }
@@ -263,6 +267,7 @@ public class VenueHireSystem {
     int systemMonth = Integer.parseInt(systemDateParts[1]);
     int systemYear = Integer.parseInt(systemDateParts[2]);
 
+    // Compare the booking date with the system date
     if (bookingYear < systemYear) {
       return true;
     } else if (bookingYear == systemYear && bookingMonth < systemMonth) {
@@ -283,6 +288,7 @@ public class VenueHireSystem {
       if (venueList.get(i).getVenueCode().equals(venueCode)) {
         venueExists = true;
 
+        // Check if booking exists
         Boolean bookingExists = false;
         for (int a = 0; a < bookingList.size(); a++) {
           if (bookingList.get(a).getVenueCodeInput().equals(venueCode)) {
@@ -290,9 +296,11 @@ public class VenueHireSystem {
           }
         }
 
+        // Print the header that includes venue name
         if (bookingExists) {
           MessageCli.PRINT_BOOKINGS_HEADER.printMessage(venueList.get(i).getVenueName());
 
+          // Print each bookings with its reference code and requested date
           for (int b = 0; b < bookingList.size(); b++) {
             if (bookingList.get(b).getVenueCodeInput().equals(venueCode)) {
               MessageCli.PRINT_BOOKINGS_ENTRY.printMessage(
@@ -301,6 +309,7 @@ public class VenueHireSystem {
           }
         }
 
+        // If there is no booking for the venue, print the message
         if (!bookingExists) {
           MessageCli.PRINT_BOOKINGS_HEADER.printMessage(venueList.get(i).getVenueName());
           MessageCli.PRINT_BOOKINGS_NONE.printMessage(venueList.get(i).getVenueName());
@@ -310,74 +319,96 @@ public class VenueHireSystem {
       }
     }
 
+    // If there are no venue in the system or could not be found, print the error message
     if (!venueExists) {
       MessageCli.PRINT_BOOKINGS_VENUE_NOT_FOUND.printMessage(venueCode);
     }
   }
 
+  // Catering arraylist to store catering services added to booking
   ArrayList<Catering> cateringList = new ArrayList<Catering>();
 
   public void addCateringService(String bookingReference, CateringType cateringType) {
 
     boolean bookingExists = false;
 
+    // Check if the booking exists
     for (int i = 0; i < bookingList.size(); i++) {
       if (bookingList.get(i).getBookingReference().equals(bookingReference)) {
         bookingExists = true;
 
+        // Create a new catering object with the booking reference, catering type name and cost
         Catering cateringService =
             new Catering(bookingReference, cateringType.getName(), cateringType.getCostPerPerson());
+
+        // Add the catering object made to the cateringList
         cateringList.add(cateringService);
 
+        // Print the successful message after adding catering service to booking
         MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage(
             "Catering (" + cateringType.getName() + ")", bookingReference);
       }
     }
 
+    // If the booking does not exist, print the error message
     if (!bookingExists) {
       MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Catering", bookingReference);
     }
   }
 
+  // Music arraylist to store music services added to booking
   ArrayList<Music> musicList = new ArrayList<Music>();
 
   public void addServiceMusic(String bookingReference) {
     boolean bookingExists = false;
 
+    // Check if the booking exists
     for (int i = 0; i < bookingList.size(); i++) {
       if (bookingList.get(i).getBookingReference().equals(bookingReference)) {
         bookingExists = true;
 
+        // Create a new music object with the booking reference and cost
         Music musicService = new Music(bookingReference, 500);
+
+        // Add the music object made to the musicList
         musicList.add(musicService);
 
+        // Print the successful message after adding music service to booking
         MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage("Music", bookingReference);
       }
     }
 
+    // If the booking does not exist, print the error message
     if (!bookingExists) {
       MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Music", bookingReference);
     }
   }
 
+  // Floral arraylist to store floral services added to booking
   ArrayList<Floral> floralList = new ArrayList<Floral>();
 
   public void addServiceFloral(String bookingReference, FloralType floralType) {
     boolean bookingExists = false;
 
+    // Check if the booking exists
     for (int i = 0; i < bookingList.size(); i++) {
       if (bookingList.get(i).getBookingReference().equals(bookingReference)) {
         bookingExists = true;
 
+        // Create a new floral object with the booking reference, floral type name and cost
         Floral floralService =
             new Floral(bookingReference, floralType.getName(), floralType.getCost());
+
+        // Add the floral object made to the floralList
         floralList.add(floralService);
 
+        // Print the successful message after adding floral service to booking
         MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage(
             "Floral (" + floralType.getName() + ")", bookingReference);
       }
     }
 
+    // If the booking does not exist, print the error message
     if (!bookingExists) {
       MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Floral", bookingReference);
     }
@@ -385,17 +416,22 @@ public class VenueHireSystem {
 
   public void viewInvoice(String bookingReference) {
 
+    // Check if the booking exists
     boolean bookingExist = false;
 
+    // Check if the booking exists by looping through the bookingList
     for (int i = 0; i < bookingList.size(); i++) {
       if (bookingList.get(i).getBookingReference().equals(bookingReference)) {
+        // if booking exists, boolean 'bookingExist' is set to true
         bookingExist = true;
         Booking booking = bookingList.get(i);
 
+        // find the venue that the booking was made
         for (int j = 0; j < venueList.size(); j++) {
           if (venueList.get(j).getVenueCode().equals(booking.getVenueCodeInput())) {
             Venue venue = venueList.get(j);
 
+            // Top Half of the invoice content is printed
             MessageCli.INVOICE_CONTENT_TOP_HALF.printMessage(
                 bookingReference,
                 booking.getEmail(),
@@ -404,46 +440,65 @@ public class VenueHireSystem {
                 booking.getAttendees(),
                 booking.getBookingNameVenue());
 
+            // invoice content for venue hire fee is printed
             MessageCli.INVOICE_CONTENT_VENUE_FEE.printMessage(venue.getHireFee());
 
+            // initialise the number of attendees
             int numPeople = Integer.parseInt(booking.getAttendees());
+
+            // initialise the total cost
             int totalAmount = Integer.parseInt(venue.getHireFee());
 
+            // check if catering service is added and print invoice for catering services
             for (int a = 0; a < cateringList.size(); a++) {
               if (cateringList.get(a).getBookingReference().equals(bookingReference)) {
                 MessageCli.INVOICE_CONTENT_CATERING_ENTRY.printMessage(
                     cateringList.get(a).getserviceTypeName(),
                     Integer.toString(cateringList.get(a).getCost() * numPeople));
 
-                // totalAmount = totalAmount + cateringList.get(a).getCost() * numPeople;
+                // Add the cost of catering service to the total amount
+                totalAmount = totalAmount + cateringList.get(a).getCost() * numPeople;
+                break;
               }
             }
 
+            // check if music service is added and print invoice for music services
             for (int b = 0; b < musicList.size(); b++) {
               if (musicList.get(b).getBookingReference().equals(bookingReference)) {
                 MessageCli.INVOICE_CONTENT_MUSIC_ENTRY.printMessage(
                     Integer.toString(musicList.get(b).getCost()));
 
+                // Add the cost of music service to the total amount
                 totalAmount = totalAmount + musicList.get(b).getCost();
+                break;
               }
             }
 
+            // check if floral service is added and print invoice for floral services
             for (int c = 0; c < floralList.size(); c++) {
               if (floralList.get(c).getBookingReference().equals(bookingReference)) {
                 MessageCli.INVOICE_CONTENT_FLORAL_ENTRY.printMessage(
                     floralList.get(c).getserviceTypeName(),
                     Integer.toString(floralList.get(c).getCost()));
 
-                // totalAmount = totalAmount + floralList.get(c).getCost();
+                // Add the cost of floral service to the total amount
+                totalAmount = totalAmount + floralList.get(c).getCost();
+                break;
               }
             }
 
+            // Bottom Half of the invoice content is printed
             MessageCli.INVOICE_CONTENT_BOTTOM_HALF.printMessage(Integer.toString(totalAmount));
-            // break;
-
+            break;
           }
         }
+        break;
       }
+    }
+
+    // If the booking does not exist, print the error message
+    if (!bookingExist) {
+      MessageCli.VIEW_INVOICE_BOOKING_NOT_FOUND.printMessage(bookingReference);
     }
   }
 }
