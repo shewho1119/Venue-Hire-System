@@ -2,9 +2,9 @@ package nz.ac.auckland.se281;
 
 public abstract class Service {
 
-  public String bookingReference;
-  public String serviceTypeName;
-  public int cost;
+  private String bookingReference;
+  private String serviceTypeName;
+  private int cost;
 
   public Service(String bookingReference, String serviceTypeName, int cost) {
     this.bookingReference = bookingReference;
@@ -12,6 +12,7 @@ public abstract class Service {
     this.cost = cost;
   }
 
+  // getter methods for Service entities
   public String getBookingReference() {
     return bookingReference;
   }

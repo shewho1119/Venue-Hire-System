@@ -326,7 +326,7 @@ public class VenueHireSystem {
   }
 
   // Catering arraylist to store catering services added to booking
-  ArrayList<Catering> cateringList = new ArrayList<Catering>();
+  private ArrayList<Catering> cateringList = new ArrayList<Catering>();
 
   public void addCateringService(String bookingReference, CateringType cateringType) {
 
@@ -357,7 +357,7 @@ public class VenueHireSystem {
   }
 
   // Music arraylist to store music services added to booking
-  ArrayList<Music> musicList = new ArrayList<Music>();
+  private ArrayList<Music> musicList = new ArrayList<Music>();
 
   public void addServiceMusic(String bookingReference) {
     boolean bookingExists = false;
@@ -385,7 +385,7 @@ public class VenueHireSystem {
   }
 
   // Floral arraylist to store floral services added to booking
-  ArrayList<Floral> floralList = new ArrayList<Floral>();
+  private ArrayList<FloralSystem> floralList = new ArrayList<FloralSystem>();
 
   public void addServiceFloral(String bookingReference, FloralType floralType) {
     boolean bookingExists = false;
@@ -396,8 +396,8 @@ public class VenueHireSystem {
         bookingExists = true;
 
         // Create a new floral object with the booking reference, floral type name and cost
-        Floral floralService =
-            new Floral(bookingReference, floralType.getName(), floralType.getCost());
+        FloralSystem floralService =
+            new FloralSystem(bookingReference, floralType.getName(), floralType.getCost());
 
         // Add the floral object made to the floralList
         floralList.add(floralService);
