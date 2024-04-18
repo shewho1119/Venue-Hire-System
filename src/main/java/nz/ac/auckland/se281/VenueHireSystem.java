@@ -423,6 +423,14 @@ public class VenueHireSystem {
               }
             }
 
+            for (int c = 0; c < floralList.size(); c++) {
+              if (floralList.get(c).getBookingReference().equals(bookingReference)) {
+                MessageCli.INVOICE_CONTENT_FLORAL_ENTRY.printMessage(
+                    floralList.get(c).getserviceTypeName(),
+                    Integer.toString(floralList.get(c).getCost()));
+              }
+            }
+
             // break;
 
           }
