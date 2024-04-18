@@ -407,12 +407,15 @@ public class VenueHireSystem {
             MessageCli.INVOICE_CONTENT_VENUE_FEE.printMessage(venue.getHireFee());
 
             int numPeople = Integer.parseInt(booking.getAttendees());
+            int totalAmount = Integer.parseInt(venue.getHireFee());
 
             for (int a = 0; a < cateringList.size(); a++) {
               if (cateringList.get(a).getBookingReference().equals(bookingReference)) {
                 MessageCli.INVOICE_CONTENT_CATERING_ENTRY.printMessage(
                     cateringList.get(a).getserviceTypeName(),
                     Integer.toString(cateringList.get(a).getCost() * numPeople));
+
+                // totalAmount = totalAmount + cateringList.get(a).getCost() * numPeople;
               }
             }
 
@@ -420,6 +423,8 @@ public class VenueHireSystem {
               if (musicList.get(b).getBookingReference().equals(bookingReference)) {
                 MessageCli.INVOICE_CONTENT_MUSIC_ENTRY.printMessage(
                     Integer.toString(musicList.get(b).getCost()));
+
+                totalAmount = totalAmount + musicList.get(b).getCost();
               }
             }
 
@@ -428,9 +433,12 @@ public class VenueHireSystem {
                 MessageCli.INVOICE_CONTENT_FLORAL_ENTRY.printMessage(
                     floralList.get(c).getserviceTypeName(),
                     Integer.toString(floralList.get(c).getCost()));
+
+                // totalAmount = totalAmount + floralList.get(c).getCost();
               }
             }
 
+            MessageCli.INVOICE_CONTENT_BOTTOM_HALF.printMessage(Integer.toString(totalAmount));
             // break;
 
           }
