@@ -20,7 +20,7 @@ public abstract class Service {
     return serviceTypeName;
   }
 
-  public int cost() {
+  public int getCost() {
     return cost;
   }
 }

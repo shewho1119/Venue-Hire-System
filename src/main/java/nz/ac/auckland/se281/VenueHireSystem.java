@@ -348,12 +348,10 @@ public class VenueHireSystem {
       if (bookingList.get(i).getBookingReference().equals(bookingReference)) {
         bookingExists = true;
 
-        Music musicService =
-            new Music(bookingReference, 500);
+        Music musicService = new Music(bookingReference, 500);
         musicList.add(musicService);
 
-        MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage(
-            "Music", bookingReference);
+        MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage("Music", bookingReference);
       }
     }
 
@@ -362,11 +360,28 @@ public class VenueHireSystem {
     }
   }
 
+  ArrayList<Floral> floralList = new ArrayList<Floral>();
+
   public void addServiceFloral(String bookingReference, FloralType floralType) {
-    // TODO implement this method
+    boolean bookingExists = false;
+
+    for (int i = 0; i < bookingList.size(); i++) {
+      if (bookingList.get(i).getBookingReference().equals(bookingReference)) {
+        bookingExists = true;
+
+        Floral floralService =
+            new Floral(bookingReference, floralType.getName(), floralType.getCost());
+        floralList.add(floralService);
+
+        MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage(
+            "Floral (" + floralType.getName() + ")", bookingReference);
+      }
+    }
+
+    if (!bookingExists) {
+      MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Floral", bookingReference);
+    }
   }
 
-  public void viewInvoice(String bookingReference) {
-    // TODO implement this method
-  }
+  public void viewInvoice(String bookingReference) {}
 }
