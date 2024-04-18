@@ -416,6 +416,13 @@ public class VenueHireSystem {
               }
             }
 
+            for (int b = 0; b < musicList.size(); b++) {
+              if (musicList.get(b).getBookingReference().equals(bookingReference)) {
+                MessageCli.INVOICE_CONTENT_MUSIC_ENTRY.printMessage(
+                    Integer.toString(musicList.get(b).getCost()));
+              }
+            }
+
             // break;
 
           }
