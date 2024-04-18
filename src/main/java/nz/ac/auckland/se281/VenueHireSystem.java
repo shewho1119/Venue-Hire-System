@@ -383,5 +383,33 @@ public class VenueHireSystem {
     }
   }
 
-  public void viewInvoice(String bookingReference) {}
+  public void viewInvoice(String bookingReference) {
+
+    boolean bookingExist = false;
+
+    for (int i = 0; i < bookingList.size(); i++) {
+      if (bookingList.get(i).getBookingReference().equals(bookingReference)) {
+        bookingExist = true;
+        Booking booking = bookingList.get(i);
+
+        for (int j = 0; j < venueList.size(); j++) {
+          if (venueList.get(j).getVenueCode().equals(booking.getVenueCodeInput())) {
+            Venue venue = venueList.get(j);
+
+            MessageCli.INVOICE_CONTENT_TOP_HALF.printMessage(
+                bookingReference,
+                booking.getEmail(),
+                systemDate,
+                booking.getRequestedDate(),
+                booking.getAttendees(),
+                booking.getBookingNameVenue());
+
+            // MessageCli.INVOICE_CONTENT_VENUE_FEE.printMessage(venue.getHireFee());
+            // MessageCli.INVOICE_CONTENT_CATERING_ENTRY.printMessage();
+
+          }
+        }
+      }
+    }
+  }
 }
