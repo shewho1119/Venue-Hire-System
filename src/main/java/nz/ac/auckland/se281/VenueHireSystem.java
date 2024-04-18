@@ -315,8 +315,28 @@ public class VenueHireSystem {
     }
   }
 
+  ArrayList<Catering> cateringList = new ArrayList<Catering>();
+
   public void addCateringService(String bookingReference, CateringType cateringType) {
-    // TODO implement this method
+
+    boolean bookingExists = false;
+
+    for (int i = 0; i < bookingList.size(); i++) {
+      if (bookingList.get(i).getBookingReference().equals(bookingReference)) {
+        bookingExists = true;
+
+        Catering cateringService =
+            new Catering(bookingReference, cateringType.getName(), cateringType.getCostPerPerson());
+        cateringList.add(cateringService);
+
+        MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage(
+            "Catering (" + cateringType.getName() + ")", bookingReference);
+      }
+    }
+
+    if (!bookingExists) {
+      MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Catering", bookingReference);
+    }
   }
 
   public void addServiceMusic(String bookingReference) {
