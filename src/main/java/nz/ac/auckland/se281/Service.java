@@ -3,12 +3,12 @@ package nz.ac.auckland.se281;
 public abstract class Service {
 
   public String bookingReference;
-  public String cateringTypeName;
+  public String serviceTypeName;
   public int cost;
 
-  public Service(String bookingReference, String cateringTypeName, int cost) {
+  public Service(String bookingReference, String serviceTypeName, int cost) {
     this.bookingReference = bookingReference;
-    this.cateringTypeName = cateringTypeName;
+    this.serviceTypeName = serviceTypeName;
     this.cost = cost;
   }
 
@@ -16,8 +16,8 @@ public abstract class Service {
     return bookingReference;
   }
 
-  public String getcateringTypeName() {
-    return cateringTypeName;
+  public String getserviceTypeName() {
+    return serviceTypeName;
   }
 
   public int cost() {

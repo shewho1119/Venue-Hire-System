@@ -339,8 +339,27 @@ public class VenueHireSystem {
     }
   }
 
+  ArrayList<Music> musicList = new ArrayList<Music>();
+
   public void addServiceMusic(String bookingReference) {
-    // TODO implement this method
+    boolean bookingExists = false;
+
+    for (int i = 0; i < bookingList.size(); i++) {
+      if (bookingList.get(i).getBookingReference().equals(bookingReference)) {
+        bookingExists = true;
+
+        Music musicService =
+            new Music(bookingReference, 500);
+        musicList.add(musicService);
+
+        MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage(
+            "Music", bookingReference);
+      }
+    }
+
+    if (!bookingExists) {
+      MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Music", bookingReference);
+    }
   }
 
   public void addServiceFloral(String bookingReference, FloralType floralType) {
