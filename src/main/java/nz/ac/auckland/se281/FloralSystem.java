@@ -4,7 +4,7 @@ import nz.ac.auckland.se281.Types.FloralType;
 
 public class FloralSystem extends Service {
 
-  FloralType floralType;
+  public FloralType floralType;
 
   public FloralSystem(String bookingReference, FloralType floralType) {
     super(bookingReference, floralType.getName());
