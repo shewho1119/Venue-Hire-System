@@ -108,7 +108,6 @@ public class VenueHireSystem {
 
     // invalid input for capacity
     try {
-      // Convert the capacity to integer
       int capacity = Integer.parseInt(capacityInput);
 
       // When the capacity is negative or not over 0, print the error message
@@ -124,7 +123,6 @@ public class VenueHireSystem {
 
     // invalid input for hirefee
     try {
-      // Convert the hirefee to integer
       int hireFee = Integer.parseInt(hireFeeInput);
 
       // When the hirefee is negative or not over 0, print the error message
@@ -150,7 +148,6 @@ public class VenueHireSystem {
     // Add the venue informations to the venueList
     Venue venue = new Venue(venueName, venueCode, capacityInput, hireFeeInput);
     venueList.add(venue);
-    // Print the successful message
     MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venueName, venueCode);
   }
 
@@ -200,7 +197,6 @@ public class VenueHireSystem {
       return;
     }
 
-    // Get the name of the venue by using the venue code
     String bookingNameVenue = null;
     // check if the venue requested actually exists
     boolean venueCodeExist = false;
@@ -249,7 +245,6 @@ public class VenueHireSystem {
     // Record the booking information into the list - Create a new booking object
     Booking booking = new Booking(referenceCode, bookingNameVenue, code, date, email, attendees);
     bookingList.add(booking);
-    // Print Successful Message
     MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(
         referenceCode, bookingNameVenue, date, attendees);
   }
@@ -337,13 +332,11 @@ public class VenueHireSystem {
       if (bookingList.get(i).getBookingReference().equals(bookingReference)) {
         bookingExists = true;
 
-        // Create a new catering object with the booking reference, catering type name and cost
+        // Create a new catering object and add catering object to the cateringList
         Catering cateringService = new Catering(bookingReference, cateringType);
 
-        // Add the catering object made to the cateringList
         cateringList.add(cateringService);
 
-        // Print the successful message after adding catering service to booking
         MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage(
             "Catering (" + cateringType.getName() + ")", bookingReference);
       }
@@ -366,13 +359,11 @@ public class VenueHireSystem {
       if (bookingList.get(i).getBookingReference().equals(bookingReference)) {
         bookingExists = true;
 
-        // Create a new music object with the booking reference and cost
+        // Create a new music object and add music object to the musicList
         Music musicService = new Music(bookingReference);
 
-        // Add the music object made to the musicList
         musicList.add(musicService);
 
-        // Print the successful message after adding music service to booking
         MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage("Music", bookingReference);
       }
     }
@@ -394,13 +385,11 @@ public class VenueHireSystem {
       if (bookingList.get(i).getBookingReference().equals(bookingReference)) {
         bookingExists = true;
 
-        // Create a new floral object with the booking reference, floral type name and cost
+        // Create a new floral object and add floral object to the floralList
         FloralSystem floralService = new FloralSystem(bookingReference, floralType);
 
-        // Add the floral object made to the floralList
         floralList.add(floralService);
 
-        // Print the successful message after adding floral service to booking
         MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage(
             "Floral (" + floralType.getName() + ")", bookingReference);
       }
